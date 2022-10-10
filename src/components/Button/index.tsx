@@ -9,7 +9,7 @@ export function Button({ bgColor, textColor, type, children }: ButtonProps) {
   return (
     <button
       type={type}
-      className={`px-12px py-6px border rounded-md shadow ${bgColor} ${textColor} transition ease-in duration-100 hover:opacity-90`}
+      className={`w-full px-12px py-6px border rounded-md shadow ${bgColor} ${textColor} transition ease-in duration-100 hover:opacity-90`}
     >
       {children}
     </button>
