@@ -16,7 +16,7 @@ const Home: NextPage = () => {
           content='Almacena y organiza todos los links de videos, artículos o cualquier otra cosa que encuentres en internet y que quieres ver después. '
         />
       </Head>
-      <Header />
+      <Header user={false} />
       <main className='flex flex-col max-w-3xl m-auto gap-30px'>
         <section className='flex flex-col gap-5 p-5'>
           <h1 className='text-3xl font-bold text-gray-900 md:text-5xl'>
