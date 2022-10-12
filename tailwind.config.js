@@ -15,6 +15,9 @@ module.exports = {
         '20px': '20px',
         '30px': '30px',
       },
+      gridTemplateColumns: {
+        listOfLinks: 'repeat(auto-fill, minmax(150px, 1fr))',
+      },
     },
   },
   plugins: [],

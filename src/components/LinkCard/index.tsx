@@ -4,13 +4,12 @@ import { FiShare, FiTrash2 } from 'react-icons/fi';
 export function LinkCard() {
   return (
     <li>
-      <div className='mb-2.5'>
+      <div className='mb-2.5 h-44 w-full relative'>
         <Image
           src='https://images.unsplash.com/photo-1650983248860-8747c75e6836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80'
-          width={200}
-          height={200}
-          alt=''
-          layout='responsive'
+          alt='Picture of the author'
+          layout='fill'
+          objectFit='cover'
           className='rounded-md'
         />
       </div>
@@ -22,7 +21,9 @@ export function LinkCard() {
         <p className='text-sm font-normal text-gray-500'>
           Las notas sobre el link son opcionales.
         </p>
-        <span className='text-sm font-normal text-gray-500'>xataka.com</span>
+        <cite>
+          <span className='text-sm font-normal text-gray-500'>xataka.com</span>
+        </cite>
       </div>
       <div className='flex mt-20px gap-2.5'>
         <button>
