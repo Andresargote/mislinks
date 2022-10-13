@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { Button } from '../components/Button';
 import { Footer } from '../components/Footer';
@@ -8,90 +7,78 @@ import { LinkCard } from '../components/LinkCard';
 import { Navigation } from '../components/Navigation';
 import { Select } from '../components/Select';
 
+type WebsiteInformation = {
+  title?: string;
+  img?: string;
+  domain?: string;
+};
+
 interface LinksFromApi {
   id: number;
-  note?: string;
+  note: string;
   url: string;
-  websiteInformation: object;
-  domain?: string;
+  websiteInformation: WebsiteInformation;
 }
 
 /*fake data*/
 const links: Array<LinksFromApi> = [
   {
-    id: 1,
-    note: '',
-    url: 'https://www.xataka.com/ordenadores-y-accesorios/sillas-gaming-precio-1300-euros-argumento',
-    websiteInformation: {},
-  },
-  {
     id: 2,
     note: 'Esto es un ejemplo de nota',
-    url: 'https://www.xataka.com/analisis/apple-watch-ultra-analisis-caracteristicas-precio-especificaciones',
-    websiteInformation: {},
+    url: 'https://www.xataka.com/energia/tope-gas-tiene-efecto-rebote-inesperado-uno-que-europa-quiza-no-se-pueda-permitir',
+    websiteInformation: {
+      title:
+        'El tope del gas tiene un efecto rebote inesperado. Uno que Europa quizá no se pueda permitir',
+      domain: 'xataka.com',
+      img: 'https://cdn.peekalink.io/public/images/0c5fa2b0-db8d-4c2a-9f13-21d8e3ace78b/221dd294-6f3a-47bb-a7f5-f2e80d2f3b62.jpg',
+    },
   },
   {
     id: 3,
     note: '',
     url: 'https://www.xataka.com/investigacion/estos-investigadores-estan-creando-cucarachas-cyborg-su-objetivo-loable-que-aparenta',
-    websiteInformation: {},
+    websiteInformation: {
+      title:
+        'Estos investigadores están creando cucarachas cyborg. Su objetivo es más loable de lo que aparenta',
+      domain: 'xataka.com',
+      img: 'https://cdn.peekalink.io/public/images/cbb3f0b7-279b-4c30-8fca-cb455af51881/7aa5cb19-0159-495c-a22b-b47b108eed82.jpg',
+    },
   },
   {
     id: 4,
     note: '',
-    url: 'https://www.xataka.com/perifericos/no-hay-muchos-fabricantes-que-presten-atencion-a-accesibilidad-microsoft-uno-ellos-sube-apuesta',
-    websiteInformation: {},
+    url: 'https://justjavascript.com/',
+    websiteInformation: {
+      title: 'Just JavaScript',
+      domain: 'justjavascript.com',
+      img: 'https://cdn.peekalink.io/public/images/262f51d5-8ba4-4897-83ae-b22ab7b42bdd/07c3116c-886d-4acc-a1a6-83ffd02e8d3e.jpg',
+    },
   },
   {
     id: 5,
     note: 'Esto es un ejemplo de nota',
     url: 'https://www.xataka.com/perifericos/no-hay-muchos-fabricantes-que-presten-atencion-a-accesibilidad-microsoft-uno-ellos-sube-apuesta',
-    websiteInformation: {},
+    websiteInformation: {
+      title:
+        'La accesibilidad es la gran olvidada para muchos fabricantes, pero no para Microsoft: así son sus nuevos periféricos modulares',
+      domain: 'xataka.com',
+      img: 'https://cdn.peekalink.io/public/images/6eb89d30-080d-4f3b-a565-cd8341667f69/40a59512-9068-4344-a7d0-3bf571a7d04b.jpg',
+    },
   },
   {
     id: 6,
     note: 'Esto es otro ejemplo de nota',
     url: 'https://www.xataka.com/perifericos/microsoft-audio-dock-caracteristicas-precio-ficha-tecnica',
-    websiteInformation: {},
+    websiteInformation: {
+      title:
+        'Microsoft Audio Dock: mezclar un altavoz con un hub de puertos USB y HDMI no parece mala idea',
+      domain: 'xataka.com',
+      img: 'https://cdn.peekalink.io/public/images/52dbfd5b-5d2e-4077-b074-2275825e44cf/9fe8ad86-eeb1-4351-aa4a-17b72e461e27.jpg',
+    },
   },
 ];
 
 const User: NextPage = () => {
-  const [allLinks, setAllLinks] = useState(links);
-
-  //this is a demo is not the final solution (this logic has to be done from the backend)
-  const getWebsiteInformationByListOfLinks = async (links: Array<LinksFromApi>) => {
-    const newLinks = [];
-
-    for (const link of links) {
-      try {
-        const response = await fetch(`https://api.linkpreview.net`, {
-          method: 'POST',
-          mode: 'cors',
-          body: JSON.stringify({
-            key: process.env.NEXT_PUBLIC_API_KEY_LINK,
-            q: link.url,
-          }),
-        });
-        let domain = new URL(link.url).hostname;
-        link.domain = domain;
-        const data = await response.json();
-        link.websiteInformation = data;
-        newLinks.push(link);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    setAllLinks(newLinks);
-  };
-
-  useEffect(() => {
-    //getWebsiteInformationByListOfLinks(allLinks);
-  }, []);
-
-  console.log(allLinks);
-
   return (
     <>
       <Head>
@@ -124,9 +111,14 @@ const User: NextPage = () => {
           <Select />
         </section>
         <main className='max-w-3xl m-auto mb-30px'>
-          <ul className='grid gap-5 grid-cols-listOfLinks sm:grid-cols-2'>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, i) => (
-              <LinkCard key={i} />
+          <ul className='gap-5 space-y-5 columns-1 sm:columns-2'>
+            {links.map((item, i) => (
+              <LinkCard
+                key={i}
+                note={item.note}
+                url={item.url}
+                websiteInformation={item.websiteInformation}
+              />
             ))}
           </ul>
         </main>
