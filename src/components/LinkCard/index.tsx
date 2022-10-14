@@ -21,15 +21,19 @@ export function LinkCard({ note, url, websiteInformation }: LinkCardProps) {
   return (
     <li className='break-inside-avoid'>
       {websiteInformation?.img && (
-        <img
-          src={websiteInformation.img}
-          alt={websiteInformation.title}
-          className='rounded-md mb-2.5 h-[150px] sm:h-[200px] w-full object-cover'
-        />
+        <a href={url} target='_blank' rel='noreferrer'>
+          <img
+            src={websiteInformation.img}
+            alt={websiteInformation.title}
+            className='rounded-md mb-2.5 h-[150px] sm:h-[200px] w-full object-cover'
+          />
+        </a>
       )}
       <div className='flex flex-col gap-2.5'>
-        <h2 className='text-lg font-semibold text-gray-900'>
-          {websiteInformation?.title}
+        <h2 className='text-lg font-semibold text-gray-900 hover:underline'>
+          <a href={url} target='_blank' rel='noreferrer'>
+            {websiteInformation?.title}
+          </a>
         </h2>
         {note && (
           <>
@@ -41,15 +45,17 @@ export function LinkCard({ note, url, websiteInformation }: LinkCardProps) {
         )}
         <cite>
           <span className='text-sm font-normal text-gray-500'>
-            {websiteInformation?.domain}
+            <a href={url} target='_blank' rel='noreferrer'>
+              {websiteInformation?.domain}
+            </a>
           </span>
         </cite>
       </div>
-      <div className='flex mt-20px gap-2.5'>
-        <button>
+      <div className='flex gap-1 mt-20px'>
+        <button className='p-[10px] rounded-full transition duration-100 ease-in hover:bg-gray-50 '>
           <FiShare size={22} color='#6B7280' />
         </button>
-        <button>
+        <button className='p-[10px] rounded-full hover:bg-gray-50'>
           <FiTrash2 size={22} color='#6B7280' />
         </button>
       </div>
