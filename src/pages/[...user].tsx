@@ -6,6 +6,7 @@ import { Header } from '../components/Header';
 import { LinkCard } from '../components/LinkCard';
 import { Navigation } from '../components/Navigation';
 import { Select } from '../components/Select';
+import { Modal } from '../components/Modal';
 
 type WebsiteInformation = {
   title?: string;
@@ -124,6 +125,11 @@ const User: NextPage = () => {
         </main>
       </div>
       <Footer />
+      <Modal
+        modalTitle='Agregar link'
+        cancelButtonTitle='Cancelar'
+        submitButtonTitle='Agregar link'
+      />
     </>
   );
 };

@@ -18,6 +18,9 @@ module.exports = {
       gridTemplateColumns: {
         listOfLinks: 'repeat(auto-fill, minmax(150px, 1fr))',
       },
+      colors: {
+        'black-rgba': 'rgba(0, 0, 0, 0.5)',
+      },
     },
   },
   plugins: [],
