@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import { useState } from 'react';
 import Head from 'next/head';
 import { Button } from '../components/Button';
 import { Footer } from '../components/Footer';
@@ -7,6 +8,7 @@ import { LinkCard } from '../components/LinkCard';
 import { Navigation } from '../components/Navigation';
 import { Select } from '../components/Select';
 import { Modal } from '../components/Modal';
+import { FormInput } from '../components/FormInput';
 
 type WebsiteInformation = {
   title?: string;
@@ -80,6 +82,8 @@ const links: Array<LinksFromApi> = [
 ];
 
 const User: NextPage = () => {
+  const [show, setShow] = useState(false);
+
   return (
     <>
       <Head>
@@ -106,10 +110,15 @@ const User: NextPage = () => {
           ]}
         />
         <section className='flex flex-col gap-20px mb-30px'>
-          <Button type='button' bgColor='bg-blue-700' textColor='text-white'>
+          <Button
+            type='button'
+            bgColor='bg-blue-700'
+            textColor='text-white'
+            onClick={() => setShow(true)}
+          >
             Agregar link
           </Button>
-          <Select />
+          <Select shadow={true} />
         </section>
         <main className='max-w-3xl m-auto mb-30px'>
           <ul className='gap-5 space-y-5 columns-1 sm:columns-2'>
@@ -129,7 +138,18 @@ const User: NextPage = () => {
         modalTitle='Agregar link'
         cancelButtonTitle='Cancelar'
         submitButtonTitle='Agregar link'
-      />
+        show={show}
+        onClose={() => setShow(false)}
+      >
+        <form className='flex flex-col gap-5'>
+          <FormInput type='string' placeholder='URL' />
+          <Select shadow={false} />
+          <textarea
+            placeholder='Nota:'
+            className='w-full font-normal text-gray-500 bg-gray-100 rounded-md resize-none px-12px py-6px'
+          />
+        </form>
+      </Modal>
     </>
   );
 };
