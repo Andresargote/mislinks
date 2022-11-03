@@ -8,7 +8,7 @@ export function FormInput({ type, placeholder }: FormInputProps) {
     <input
       type={type}
       placeholder={placeholder}
-      className='w-full font-normal text-gray-500 bg-gray-100 rounded-md px-12px py-6px'
+      className='w-full h-12 font-normal text-gray-500 bg-gray-100 rounded-md px-12px py-6px'
     />
   );
 }
