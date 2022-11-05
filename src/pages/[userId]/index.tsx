@@ -1,14 +1,16 @@
 import type { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import { Button } from '../components/Button';
-import { Footer } from '../components/Footer';
-import { Header } from '../components/Header';
-import { LinkCard } from '../components/LinkCard';
-import { Navigation } from '../components/Navigation';
-import { Select } from '../components/Select';
-import { Modal } from '../components/Modal';
-import { FormInput } from '../components/FormInput';
+import { Button } from '../../components/Button';
+import { Footer } from '../../components/Footer';
+import { Header } from '../../components/Header';
+import { LinkCard } from '../../components/LinkCard';
+import { Navigation } from '../../components/Navigation';
+import { Select } from '../../components/Select';
+import { Modal } from '../../components/Modal';
+import { FormInput } from '../../components/FormInput';
+import { LinkCardSkeleton } from '../../components/LinkCardSkeleton';
+import FadeIn from 'react-fade-in';
 
 type WebsiteInformation = {
   title?: string;
@@ -24,7 +26,7 @@ interface LinksFromApi {
 }
 
 /*fake data*/
-const links: Array<LinksFromApi> = [
+const linksData: Array<LinksFromApi> = [
   {
     id: 2,
     note: 'Esto es un ejemplo de nota',
@@ -83,6 +85,13 @@ const links: Array<LinksFromApi> = [
 
 const User: NextPage = () => {
   const [show, setShow] = useState(false);
+  const [links, setLinks] = useState<LinksFromApi[]>([]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLinks(linksData);
+    }, 1000);
+  }, []);
 
   return (
     <>
@@ -101,11 +110,13 @@ const User: NextPage = () => {
               id: '1',
               url: '#',
               text: 'Mis links',
+              active: true,
             },
             {
               id: '2',
-              url: '#',
+              url: `andresargote/categories`,
               text: 'Mis categorías',
+              active: false,
             },
           ]}
         />
@@ -121,16 +132,24 @@ const User: NextPage = () => {
           <Select shadow={true} />
         </section>
         <main className='max-w-3xl m-auto mb-30px'>
-          <ul className='gap-5 space-y-5 columns-1 sm:columns-2'>
-            {links.map((item, i) => (
-              <LinkCard
-                key={i}
-                note={item.note}
-                url={item.url}
-                websiteInformation={item.websiteInformation}
-              />
-            ))}
-          </ul>
+          {links.length > 0 ? (
+            <ul className='gap-5 space-y-5 columns-1 sm:columns-2'>
+              {links.map((item, i) => (
+                <LinkCard
+                  key={i}
+                  note={item.note}
+                  url={item.url}
+                  websiteInformation={item.websiteInformation}
+                />
+              ))}
+            </ul>
+          ) : (
+            <div className='gap-5 space-y-5 columns-1 sm:columns-2'>
+              {[1, 2, 3, 4, 5, 6].map((item, i) => (
+                <LinkCardSkeleton key={i} />
+              ))}
+            </div>
+          )}
         </main>
       </div>
       <Footer />

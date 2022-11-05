@@ -4,6 +4,8 @@ import { Button } from '../components/Button';
 import { Footer } from '../components/Footer';
 import { FormInput } from '../components/FormInput';
 import { Header } from '../components/Header';
+import { FcGoogle } from 'react-icons/fc';
+import { FaGithub } from 'react-icons/fa';
 
 const Login: NextPage = () => {
   return (
@@ -20,10 +22,12 @@ const Login: NextPage = () => {
         <h1 className='text-3xl font-bold text-gray-900 md:text-5xl'>Iniciar sesión</h1>
         <section className='flex flex-col w-full gap-20px'>
           <Button type='button' bgColor='bg-white' textColor='text-gray-500'>
-            Iniciar con Google
+            <FcGoogle size={22} />
+            <p>Continuar con google</p>
           </Button>
           <Button type='button' bgColor='bg-white' textColor='text-gray-500'>
-            Iniciar con Github
+            <FaGithub size={22} color='#333' />
+            <p>Continuar con Github</p>
           </Button>
         </section>
         <div className='w-full py-6px'>

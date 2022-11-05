@@ -4,6 +4,7 @@ type Link = {
   id: string;
   url: string;
   text: string;
+  active: boolean;
 };
 
 interface InternalNavigationProps {
@@ -15,12 +16,8 @@ export function Navigation({ links }: InternalNavigationProps) {
     <nav className='mb-30px'>
       <ul className='flex text-lg gap-20px'>
         {links.map((link) => (
-          <li key={link.id}>
-            <Link href={link.url}>
-              <a className='transition duration-100 ease-in hover:text-blue-700'>
-                {link.text}
-              </a>
-            </Link>
+          <li key={link.id} className={link.active ? 'text-blue-700' : ''}>
+            <Link href={link.url}>{link.text}</Link>
           </li>
         ))}
       </ul>
